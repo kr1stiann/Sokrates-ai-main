@@ -1,0 +1,319 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+/* include utility classes in streamdown */
+@source '../node_modules/streamdown/dist/index.js';
+
+/* custom variant for setting dark mode programmatically */
+@custom-variant dark (&:is(.dark, .dark *));
+
+/* include plugins */
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+/* define design tokens (light mode) */
+/* define design tokens (light mode - Warm Beige/Paper) */
+:root {
+  --background: hsl(40 20% 98%); /* Warm Off-white */
+  --foreground: hsl(30 10% 16%); /* Soft Charcoal */
+  --card: hsl(40 15% 97%); /* Light Beige */
+  --card-foreground: hsl(30 10% 16%);
+  --popover: hsl(40 20% 98%);
+  --popover-foreground: hsl(30 10% 16%);
+  --primary: hsl(30 8% 25%); /* Deep Taupe */
+  --primary-foreground: hsl(40 20% 98%);
+  --secondary: hsl(40 15% 92%); /* Sand */
+  --secondary-foreground: hsl(30 8% 25%);
+  --muted: hsl(40 15% 92%);
+  --muted-foreground: hsl(30 5% 45%);
+  --accent: hsl(40 15% 90%);
+  --accent-foreground: hsl(30 8% 25%);
+  --destructive: hsl(0 75% 55%);
+  --destructive-foreground: hsl(40 20% 98%);
+  --border: hsl(40 10% 88%);
+  --input: hsl(40 10% 88%);
+  --ring: hsl(30 8% 65%);
+  --chart-1: hsl(25 35% 55%); /* Terracotta */
+  --chart-2: hsl(150 20% 45%); /* Sage */
+  --chart-3: hsl(200 25% 45%); /* Slate Blue */
+  --chart-4: hsl(45 50% 65%); /* Mustard */
+  --chart-5: hsl(15 45% 65%); /* Peach */
+  --sidebar-background: hsl(40 18% 95%); /* Slightly darker beige */
+  --sidebar-foreground: hsl(30 10% 20%);
+  --sidebar-primary: hsl(30 8% 25%);
+  --sidebar-primary-foreground: hsl(40 20% 98%);
+  --sidebar-accent: hsl(40 15% 90%);
+  --sidebar-accent-foreground: hsl(30 8% 25%);
+  --sidebar-border: hsl(40 10% 85%);
+  --sidebar-ring: hsl(30 8% 65%);
+  /* border radius unit */
+  --radius: 0.75rem; /* Softer corners */
+  --sidebar: hsl(40 18% 95%);
+}
+
+/* define design tokens (dark mode - Warm Coffee/Charcoal) */
+.dark {
+  --background: hsl(30 8% 12%); /* Deep Warm Grey */
+  --foreground: hsl(40 15% 90%); /* Warm White */
+  --card: hsl(30 6% 15%); /* Dark Taupe */
+  --card-foreground: hsl(40 15% 90%);
+  --popover: hsl(30 8% 12%);
+  --popover-foreground: hsl(40 15% 90%);
+  --primary: hsl(40 15% 90%);
+  --primary-foreground: hsl(30 8% 12%);
+  --secondary: hsl(30 6% 18%);
+  --secondary-foreground: hsl(40 15% 90%);
+  --muted: hsl(30 6% 18%);
+  --muted-foreground: hsl(40 5% 65%);
+  --accent: hsl(30 6% 18%);
+  --accent-foreground: hsl(40 15% 90%);
+  --destructive: hsl(0 60% 40%);
+  --destructive-foreground: hsl(40 15% 90%);
+  --border: hsl(30 6% 20%);
+  --input: hsl(30 6% 20%);
+  --ring: hsl(30 6% 25%);
+  --chart-1: hsl(25 40% 50%);
+  --chart-2: hsl(150 25% 40%);
+  --chart-3: hsl(200 30% 40%);
+  --chart-4: hsl(45 55% 55%);
+  --chart-5: hsl(15 50% 55%);
+  --sidebar-background: hsl(30 8% 10%); /* Darker Coffee */
+  --sidebar-foreground: hsl(40 10% 88%);
+  --sidebar-primary: hsl(25 35% 55%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(30 6% 18%);
+  --sidebar-accent-foreground: hsl(40 15% 90%);
+  --sidebar-border: hsl(30 6% 18%);
+  --sidebar-ring: hsl(30 8% 65%);
+  --sidebar: hsl(30 8% 10%);
+}
+
+/* define theme */
+@theme {
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+
+  --breakpoint-toast-mobile: 600px;
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar-background);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility -webkit-overflow-scrolling-touch {
+  -webkit-overflow-scrolling: touch;
+}
+
+@utility touch-pan-y {
+  touch-action: pan-y;
+}
+
+@utility overscroll-behavior-contain {
+  overscroll-behavior: contain;
+}
+
+@layer utilities {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+}
+
+.skeleton {
+  * {
+    pointer-events: none !important;
+  }
+
+  *[class^="text-"] {
+    color: transparent;
+    @apply rounded-md bg-foreground/20 select-none animate-pulse;
+  }
+
+  .skeleton-bg {
+    @apply bg-foreground/10;
+  }
+
+  .skeleton-div {
+    @apply bg-foreground/20 animate-pulse;
+  }
+}
+
+.ProseMirror {
+  outline: none;
+}
+
+.cm-editor,
+.cm-gutters {
+  @apply bg-background! dark:bg-zinc-800! outline-hidden! selection:bg-zinc-900!;
+}
+
+.ͼo.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.ͼo.cm-selectionBackground,
+.ͼo.cm-content::selection {
+  @apply bg-zinc-200! dark:bg-zinc-900!;
+}
+
+.cm-activeLine,
+.cm-activeLineGutter {
+  @apply bg-transparent!;
+}
+
+.cm-activeLine {
+  @apply rounded-r-sm!;
+}
+
+.cm-lineNumbers {
+  @apply min-w-7;
+}
+
+.cm-foldGutter {
+  @apply min-w-3;
+}
+
+.cm-lineNumbers .cm-activeLineGutter {
+  @apply rounded-l-sm!;
+}
+
+.suggestion-highlight {
+  @apply bg-blue-200 hover:bg-blue-300 dark:hover:bg-blue-400/50 dark:text-blue-50 dark:bg-blue-500/40;
+}
+
+/* minimal scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: --alpha(var(--muted-foreground) / 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
