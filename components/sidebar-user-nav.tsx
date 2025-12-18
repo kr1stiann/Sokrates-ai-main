@@ -104,7 +104,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                 }}
                 type="button"
               >
-                {isGuest ? "Logga in på ditt konto" : "Logga ut"}
+                {isGuest ? "Logga in" : "Logga ut"}
               </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
