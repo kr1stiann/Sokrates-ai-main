@@ -37,7 +37,9 @@ import { generateHashedPassword } from "./utils";
 // use the Drizzle adapter for Auth.js / NextAuth
 // https://authjs.dev/reference/adapter/drizzle
 
-// biome-ignore lint: Forbidden non-null assertion.
+if (!process.env.POSTGRES_URL) {
+  console.error("CRITICAL: POSTGRES_URL is not defined in environment variables");
+}
 const client = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 const db = drizzle(client);
 
@@ -71,7 +73,8 @@ export async function createGuestUser() {
       id: user.id,
       email: user.email,
     });
-  } catch (_error) {
+  } catch (error) {
+    console.error("Failed to create guest user:", error);
     throw new ChatSDKError(
       "bad_request:database",
       "Failed to create guest user"
